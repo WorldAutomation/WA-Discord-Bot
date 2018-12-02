@@ -4,7 +4,7 @@
         "bot_nickname" : "WorldAutomation.Net",
 	"bot_admin_id" : "196825309692035072",
 	"bot_token" : "",
-	"bot_web_port" : 5000,
+	"bot_web_port" : 80,
 	"bot_web_title" : "WorldAutomation.Net",
 	"bot_web_favicon" : "",
 	"bot_logo_long" : "",
