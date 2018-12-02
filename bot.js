@@ -1294,7 +1294,7 @@ const commands = {
 				//const stream = ytdl('http://listen.radionomy.com/hotmixradio-lounge-128.m3u', { filter : 'audioonly' });
 				//const stream = ffmpeg('https://radio.worldautomation.net/music/Mad_World_-_Gary_Jules.mp3');
 
-				const dispatcher = connection.playStream("http://radio.worldautomation.net/listen.mp3", streamOptions);
+				const dispatcher = connection.playStream("https://ia801905.us.archive.org/6/items/DSOTM/06%20-%20Money.mp3", streamOptions);
 				dispatcher.on("end", end => {
 					console.log("Main WorldAutomation.Net ICECAST Server has quit broadcasting!");
 					msg.channel.send("<:main_computer:420575980198035456> :headphones: <:restart:420839450914979841>  `[Live Radio] WA.Net# Main Radio feed has quit broadcasting, check the servers!`");
