@@ -1,4 +1,4 @@
-![WorldAutomation.Net](https://www.worldautomation.net/images/home_logo.png)
+![WorldAutomation.Net](https://i1.wp.com/www.worldautomation.net/wp-content/uploads/2018/11/web.png?w=300&ssl=1)
 # WA-Bot
 WorldAutomation.Net Discord Bot
 
