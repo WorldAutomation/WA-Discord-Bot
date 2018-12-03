@@ -520,18 +520,17 @@ function A() {
 //end radio now playing
 exports.searchKat = searchKat;
 exports.searchPb = searchPb;
-
 var readyLog = function(msg,d,u,uid) {
 	if(!u) { var u = bot_nickname; }
 	if(!uid) { var uid = "System"; }
 	var sys = require('util');
 	var exec = require('child_process').exec;
-	client.channels.get(discord_channel_id_log).send("!radio play");	
+//	client.channels.get(discord_channel_id_log).send("!radio play");	
 	fs.readFile('.git/refs/heads/master', function(err, data) {
 		var gitHash = data.toString().substr(null,8);
 		console.log("Repository Hash: "+gitHash);
 		console.log("---------------------------\n");
-		client.channels.get(discord_channel_id_log).send("<:main_computer:420575980198035456> <:terminalreal:421547027051184128>  `[Main Computer] WA.Net# Systems initialized, starting node daemon...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
+		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> <:terminalreal:421547027051184128> `Systems initialized, starting node daemon and bot...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
 	});
 };
 
@@ -720,7 +719,7 @@ const commands = {
 			    }
 			  }
 			}); */
-			msg.channel.send("<:main_computer:420575980198035456> <:wa:324446350211284992>  `[Main Computer] WA.Net# Querying the answer to life, the universe, and everything...` ```css\n42 :)\n\nCustom Open Source Discord Bot built with [Node] and [Discord.js] for our Minecraft community and server.\n\nFor more information including current and planned features visit the link above.\n\nBig Brother is Watching You!\n\n{ www.worldautomation.net | All Rights Reserved }```");
+			msg.channel.send("<:wa:502866072152571924> :grey_question: `Querying the answer to life, the universe, and everything...` ```css\n42 :)\n\nCustom Open Source Discord Bot built with [Node] and [Discord.js] for our Minecraft community and server.\n\nFor more information including current and planned features visit the link above.\n\nBig Brother is Watching You!\n\n{ www.worldautomation.net | All Rights Reserved }```");
 	},'auth-login': (msg) => {
 		let player = msg.content.split(' ')[1];
 		msg.delete(1000);
@@ -961,54 +960,11 @@ const commands = {
 			});
 	},'status' : (msg) => {
 		//msg.delete(1000);
-		function putsMem(error, stdout, stderr) { 
-			msg.channel.send("<:main_computer:420575980198035456> <:memory:420679644401106954>  `[Main Computer] WA.Net# Querying bot node memory processes statistics...` ```css\n"+stdout+"```")
-		}
-		function putsCpu(error, stdout, stderr) { 
-			msg.channel.send("<:main_computer:420575980198035456> <:chip:421925899907104770>  `[Main Computer] WA.Net# Querying bot node CPU processes statistics...` ```css\n"+stdout+"```")
-		}
-		function putsTop(error, stdout, stderr) { 
-			msg.channel.send("<:main_computer:420575980198035456> <:pulse:420859435125178378>  `[Main Computer] WA.Net# Querying bot node average system load statistics...` ```css\n"+stdout+"```")
-		}		
 		var freeMem = prettySize(os.freemem());
 		var totalMem = prettySize(os.totalmem());
 		var milliSecUp = os.uptime() * 1000;
 		var upTime = prettyMs(milliSecUp, {verbose: true});
-		var descriptionStatus = "```Memory Usage: "+freeMem+" Free / "+totalMem+" Total \n\nBot OS/Arch: "+os.type()+" ("+os.arch()+")\n\nBot Node FQDN: "+os.hostname()+"\n\nBot Node Update: "+upTime+"```";
-
-		var gameNodeMemory = "";
-		var gameNodeUpTime = "";
-
-		request.get('http://mc.worldautomation.net:57100/bot/status-memory.report', function (error, response, memory) {
-			if (!error && response.statusCode == 200) {
-				// Continue with your processing here.
-				request.get('http://mc.worldautomation.net:57100/bot/status-uptime.report', function (error, response, uptime) {
-					if (!error && response.statusCode == 200) {
-						msg.channel.send("<:main_computer:420575980198035456> <:wa:324446350211284992>  `[Main Computer] WA.Net# Querying all game and bot nodes, generating operational summary...` ```css\nBot Node Memory Usage: "+freeMem+" Free / "+totalMem+" Total \n\nBot Node OS/Arch: "+os.type()+" ("+os.arch()+")\n\nBot Node FQDN: "+os.hostname()+"\n\nBot Node Uptime: "+upTime+"```");				
-						var top = "top -b -n 1 | head -5;";
-						var cpu = "echo Top Chip Consumers; echo ---------; top -o %CPU -b -n 1 | head -20 | tail -n 14;";
-						var mem = "echo Top Memory Consumers; echo ---------; top -o %MEM -b -n 1 | head -20 | tail -n 14;";
-						exec("mpstat;"+top+"echo;", putsTop);
-						exec(cpu, putsCpu);
-						exec(mem, putsMem);	
-						radioNowPlaying(msg.channel.id);
-						function puts(error, stdout, stderr) { 
-							if(stdout == "") {
-								msg.channel.send("<:main_computer:420575980198035456> <:pulse:420859435125178378>  `[Main Computer] WA.Net# Querying entities, items, blocks, dimensions, overall health and ticks per second...` ```Well, I may be artificial, but I am far from perfect. Error!```");			
-							} else {
-								msg.channel.send("<:main_computer:420575980198035456> <:pulse:420859435125178378>  `[Main Computer] WA.Net# Querying entities, items, blocks, dimensions, overall health and ticks per second...` ```css\n"+stdout+"```");
-							}
-						}
-						if (systemOS === "win32") {
-							//exec("ping -n 5 "+host, puts);
-						} else {
-							//exec("/storage/tps.sh | iconv -f utf-8 -t utf-8 -c", puts);
-						}
-					}
-				});	
-			}
-		});	
-	
+		msg.channel.send("<:wa:502866072152571924> <:main_computer:420575980198035456> `Querying bot node statistics...`\n```Memory Usage: "+freeMem+" Free / "+totalMem+" Total \n\nBot OS/Arch: "+os.type()+" ("+os.arch()+")\n\nBot Node FQDN: "+os.hostname()+"\n\nBot Node Update: "+upTime+"```");
 	},'help': (msg) => {
 		if(msg.member.roles.find("name", "Admin") || msg.member.roles.find("name", "GM") || msg.member.roles.find("name", "Mod")) {
 			msg.author.send("<:main_computer:420575980198035456> <:wa:324446350211284992>  `[Main Computer] WA.Net# Since you are staff, here are some extras...` ```css\n.MINECRAFT_PLAYER_FIXES\n!unstuck [playerName] { Teleports the player to spawn. }\n!reset [playerName] {Resets players account password. The will get a new pin on join. }\n\n.BOT\n!status { Get Main Computer's (BOT) node statistics. }\n\n```");
@@ -1253,7 +1209,7 @@ const commands = {
 	switch(cmd) {
 		case "skip":
 			exec("pkill -10 ices && pkill -1 ices");
-			msg.channel.send("<:main_computer:420575980198035456> :headphones: :fast_forward:  `[Live Radio] WA.Net# Skipping to the next radio track...`");		
+			msg.channel.send("<:main_computer:420575980198035456> :headphones: :fast_forward:  `[Live Radio] WA.Net# Skipping to the next radio track!`");		
 			
 			setTimeout(function () {
 				radioNowPlaying("422898611106480139");
@@ -1289,7 +1245,7 @@ const commands = {
 			var voiceChannel = client.channels.get(discord_channel_id_radio);
 			voiceChannel.join().then(connection => {
 				console.log("Starting WorldAutomation.Net Radio Streamer....");
-				client.channels.get(discord_channel_id_log).send("<:main_computer:420575980198035456> :headphones: <:start:420839451384610816>  `[Live Radio] WA.Net# Initializing the WorldAutomation.Net Live Radio feed encoder...`");
+				client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> :headphones: `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
 				//radioNowPlaying("422898611106480139");
 				//const stream = ytdl('http://listen.radionomy.com/hotmixradio-lounge-128.m3u', { filter : 'audioonly' });
 				//const stream = ffmpeg('https://radio.worldautomation.net/music/Mad_World_-_Gary_Jules.mp3');
@@ -2247,6 +2203,24 @@ client.on('ready', () => {
 	console.log("Bot is Ready!");
 	console.log("---------------------------");
 	//A();
+	const streamOptions = { seek: 0, volume: 1 };
+	var voiceChannel = client.channels.get(discord_channel_id_radio);
+	voiceChannel.join().then(connection => {
+		console.log("Starting WorldAutomation.Net Radio Streamer....");
+		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> :headphones: `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
+		//radioNowPlaying("422898611106480139");
+		//const stream = ytdl('http://listen.radionomy.com/hotmixradio-lounge-128.m3u', { filter : 'audioonly' });
+		//const stream = ffmpeg('https://radio.worldautomation.net/music/Mad_World_-_Gary_Jules.mp3');
+
+		const dispatcher = connection.playStream("https://ia801905.us.archive.org/6/items/DSOTM/06%20-%20Money.mp3", streamOptions);
+		dispatcher.on("end", end => {
+			console.log("Main WorldAutomation.Net ICECAST Server has quit broadcasting!");
+			client.channels.get(discord_channel_id_log).send("<:main_computer:420575980198035456> :headphones: <:restart:420839450914979841>  `[Live Radio] WA.Net# Main Radio feed has quit broadcasting, check the servers!`");
+			voiceChannel.leave();
+		});
+	}).catch(err => console.log(err));
+
+
 });
 
 client.on('message', msg => {
