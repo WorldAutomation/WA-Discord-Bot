@@ -455,7 +455,7 @@ function radioRemove(channel){
 			var sys = require('util');
 			var exec = require('child_process').exec;
 			function puts(error, stdout, stderr) { 
-				client.channels.get(channel).send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Removed  ` "+titlePretty+" `from the radio queue`!");
+				client.channels.get(channel).send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Removed "+titlePretty+" `from the radio queue`!");
 				return true;
 			}
 			exec("rm -rf /storage/WA-Bot/assets/public/music/"+title, puts);
@@ -484,8 +484,8 @@ function radioRemoveBackend(channel,player){
 			var sys = require('util');
 			var exec = require('child_process').exec;
 			function puts(error, stdout, stderr) { 
-				client.channels.get(channel).send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Player "+player+" removed  ` "+titlePretty+" `from the radio queue`!");
-				//client.channels.get("419425539884056587").send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Player "+player+" removed  ` "+titlePretty+" `from the radio queue`!");
+				client.channels.get(channel).send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Player "+player+" removed "+titlePretty+" `from the radio queue`!");
+				//client.channels.get("419425539884056587").send(":headphones: :wastebasket:  `[Live Radio] WA.Net# Player "+player+" removed "+titlePretty+" `from the radio queue`!");
 				return true;
 			}
 			exec("rm -rf /storage/WA-Bot/assets/public/music/"+title, puts);
@@ -530,7 +530,7 @@ var readyLog = function(msg,d,u,uid) {
 		var gitHash = data.toString().substr(null,8);
 		console.log("Repository Hash: "+gitHash);
 		console.log("---------------------------\n");
-		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> <:terminalreal:421547027051184128> `Systems initialized, starting node daemon and bot...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
+		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> <:wa:502866072152571924> `Systems initialized, starting node daemon and bot...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
 	});
 };
 
@@ -980,7 +980,7 @@ const commands = {
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `I pinged "+host+" with a few packets, see attached...`\n```ldif\n"+stdout+"```"); 
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `I pinged "+host+" with a few packets, see attached...`\n```ldif\n"+stdout+"```"); 
 		}
 		if (systemOS === "win32") {
 			exec("ping -n 5 "+host, puts);
@@ -1099,14 +1099,15 @@ const commands = {
 	},'speedtest': (msg) => {
 		//msg.delete(1000);		
 		var mentionCommandAuthor = "<@"+msg.author.id+">";
-		msg.channel.send("<:terminalreal:421547027051184128>  `Running speed test from bot host node... please wait...`");
+		msg.channel.send("<:wa:502866072152571924> `Running speed test from bot host node... please wait...`");
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `Speed test result is complete, see attached.`\n```css\n"+stdout+"```"); 
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Speed test result is complete, see attached.`\n```css\n"+stdout+"```"); 
 		}
 		exec("speedtest-cli", puts);
 	},'update': (msg) => {
+		msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Speed test result is complete, see attached.`\n```css\n"+stdout+"```"); 
 		//msg.delete(1000);
 		let host = msg.content.split(' ')[1];
 		var sys = require('util');
@@ -1135,7 +1136,7 @@ const commands = {
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `Pinging name server lookup on "+host+"...`\n```css\n"+stdout+"```"); 
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Pinging name server lookup on "+host+"...`\n```css\n"+stdout+"```"); 
 		}
 		exec("nslookup "+host, puts);
  },'dig': (msg) => {
@@ -1145,7 +1146,7 @@ const commands = {
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `Digging network registry information for "+host+"...`\n```css\n"+stdout+"```"); 
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Digging network registry information for "+host+"...`\n```css\n"+stdout+"```"); 
 		}
 		exec("dig "+host, puts);
  },'gitdiff': (msg) => {
@@ -1159,7 +1160,7 @@ const commands = {
 		const warning = client.emojis.find("name", "warning");
 		function puts(error, stdout, stderr) {
 			var output = stdout.replace(/`/g, "");
-			msg.channel.send("<:terminalreal:421547027051184128>  `Displaying recent cybernetic differences against revision #"+which+" of my code...` ```css\n"+output+"```");
+			msg.channel.send("<:wa:502866072152571924> `Displaying recent cybernetic differences against revision #"+which+" of my code...` ```css\n"+output+"```");
 		}
 		//exec("git log --graph --abbrev-commit -n 5", puts);
 		if (!which || which == 0) {
@@ -1542,7 +1543,7 @@ const commands = {
 		function puts(error, stdout, stderr) {
 			//stdout.substring(0, stdout.indexOf(" ", 2000));
 			//stdout.substring(stdout.indexOf(" ", 2000));
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `Displaying port scan of "+host+"...` ```css\n"+stdout+"```");
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Displaying port scan of "+host+"...` ```css\n"+stdout+"```");
 			//msg.channel.send(main_computer+" "+main_minecraft+" `[Main Computer] Bot is displaying recent Discord cybernetics...` ```http\n"+stdout.substring(stdout.indexOf(" ", 2000));
 		}
 		//exec("git log --graph --abbrev-commit -n 5", puts);
@@ -1558,7 +1559,7 @@ const commands = {
 			var output = stdout.replace(/`/g, "");
 			//stdout.substring(0, stdout.indexOf(" ", 2000));
 			//stdout.substring(stdout.indexOf(" ", 2000));
-			msg.channel.send("<:terminalreal:421547027051184128>  `Displaying current main terminal session...` ```"+output+"```");
+			msg.channel.send("<:wa:502866072152571924> `Displaying current main terminal session...` ```"+output+"```");
 			//msg.channel.send(main_computer+" "+main_minecraft+" `[Main Computer] Bot is displaying recent Discord cybernetics...` ```"+stdout.substring(stdout.indexOf(" ", 2000));
 		}
 		//exec("git log --graph --abbrev-commit -n 5", puts);
@@ -1567,11 +1568,11 @@ const commands = {
 		//msg.delete(1000);		
 		let host = msg.content.split(' ')[1];
 		var mentionCommandAuthor = "<@"+msg.author.id+">";
-		msg.channel.send("<:terminalreal:421547027051184128>  `Tracing "+host+" through origin network... please wait...`");
+		msg.channel.send("<:wa:502866072152571924> `Tracing "+host+" through origin network... please wait...`");
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
-			msg.channel.send("<:terminalreal:421547027051184128>  `[WA]` "+mentionCommandAuthor+" `Trace route result for "+host+" is complete, see attached.`\n```css\n"+stdout+"```"); 
+			msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Trace route result for "+host+" is complete, see attached.`\n```css\n"+stdout+"```"); 
 		}
      exec("traceroute "+host, puts);
  },'open': (msg) => {
