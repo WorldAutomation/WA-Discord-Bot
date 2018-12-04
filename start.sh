@@ -6,7 +6,7 @@ if ! screen -list | grep -q "bot"; then
 #	/storage/ices-start.sh;
 	git stash;
 	git pull;
-    screen -LdmS bot node /storage/WA-Discord-Bot/bot.js
+        screen -LdmS bot node /storage/WA-Discord-Bot/bot.js
 fi
 #if ! screen -list | grep -q "WA-Bot-Music"; then
 #	cd /storage/WA-Bot/
