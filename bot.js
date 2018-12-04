@@ -405,7 +405,7 @@ function radioNowPlaying(channel){
 
 		res.on('end',function(){
 			var obj = JSON.parse(data);
-		client.channels.get(channel).send(":headphones: :arrow_forward:  `Displaying current track and stream information...`\n```css\nCurrent Track { "+obj.icestats.source.title.replace(/_/g, ' ').replace(/-/g,' ')+" }\nNext Track { Not Yet Implemented }\nPrevious Track { Not Yet Implemented }\nPeak Listeners { "+obj.icestats.source.listener_peak+" }\nCurrent Listeners { "+obj.icestats.source.listeners+" }\nCurrent Bit Rate { "+obj.icestats.source.bitrate+" }```");
+		client.channels.get(channel).send("<:wa:502866072152571924> :arrow_forward:  `Displaying current track and stream information...`\n```css\nCurrent Track { "+obj.icestats.source.title.replace(/_/g, ' ').replace(/-/g,' ')+" }\nNext Track { Not Yet Implemented }\nPrevious Track { Not Yet Implemented }\nPeak Listeners { "+obj.icestats.source.listener_peak+" }\nCurrent Listeners { "+obj.icestats.source.listeners+" }\nCurrent Bit Rate { "+obj.icestats.source.bitrate+" }```");
 		});
 	});
 }
@@ -430,7 +430,7 @@ function radioQueue(channel){
 				var playList = stdout.replace(/.mp3/g, "").replace(/\/storage\/WA-Bot\/assets\/public\/music\//g, "").replace(/__/g, " ").replace(/_/g, " ");
 				var finalPlayList = playList.replace(title,"{ "+title.replace(/_/g, '')+" }");
 				//console.log(finalPlayList);
-				client.channels.get(channel).send(":headphones: :arrow_forward:  `Displaying current radio queue...`\n```css\n"+finalPlayList+"```");
+				client.channels.get(channel).send("<:wa:502866072152571924> :arrow_forward:  `Displaying current radio queue...`\n```css\n"+finalPlayList+"```");
 				return true;
 			}
 			exec("cat /storage/listen.m3u", puts);
@@ -455,7 +455,7 @@ function radioRemove(channel){
 			var sys = require('util');
 			var exec = require('child_process').exec;
 			function puts(error, stdout, stderr) { 
-				client.channels.get(channel).send(":headphones: :wastebasket:  `Removed "+titlePretty+" `from the radio queue`!");
+				client.channels.get(channel).send("<:wa:502866072152571924> :wastebasket:  `Removed "+titlePretty+" `from the radio queue`!");
 				return true;
 			}
 			exec("rm -rf /storage/WA-Bot/assets/public/music/"+title, puts);
@@ -484,8 +484,8 @@ function radioRemoveBackend(channel,player){
 			var sys = require('util');
 			var exec = require('child_process').exec;
 			function puts(error, stdout, stderr) { 
-				client.channels.get(channel).send(":headphones: :wastebasket:  `Player "+player+" removed "+titlePretty+" `from the radio queue`!");
-				//client.channels.get("419425539884056587").send(":headphones: :wastebasket:  `Player "+player+" removed "+titlePretty+" `from the radio queue`!");
+				client.channels.get(channel).send("<:wa:502866072152571924> :wastebasket:  `Player "+player+" removed "+titlePretty+" `from the radio queue`!");
+				//client.channels.get("419425539884056587").send("<:wa:502866072152571924> :wastebasket:  `Player "+player+" removed "+titlePretty+" `from the radio queue`!");
 				return true;
 			}
 			exec("rm -rf /storage/WA-Bot/assets/public/music/"+title, puts);
@@ -530,7 +530,7 @@ var readyLog = function(msg,d,u,uid) {
 		var gitHash = data.toString().substr(null,8);
 		console.log("Repository Hash: "+gitHash);
 		console.log("---------------------------\n");
-		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> <:wa:502866072152571924> `Systems initialized, starting node daemon and bot...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
+		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> `Systems initialized, starting node daemon and bot...`\n```css\nBot Started Successfully!\n\nBot PID { "+process.pid+" }\n\nRepository Version Hash { "+gitHash+" }```");
 	});
 };
 
@@ -1210,7 +1210,7 @@ const commands = {
 	switch(cmd) {
 		case "skip":
 			exec("pkill -10 ices && pkill -1 ices");
-			msg.channel.send(":headphones: :fast_forward:  `Skipping to the next radio track!`");		
+			msg.channel.send("<:wa:502866072152571924> :fast_forward:  `Skipping to the next radio track!`");		
 			
 			setTimeout(function () {
 				radioNowPlaying("422898611106480139");
@@ -1235,9 +1235,9 @@ const commands = {
 			exec("rm -rf /storage/WA-Bot/assets/public/music/*.mp3");
 			exec("cp -rf /storage/WA-Bot/assets/public/music-orig/*.mp3 /storage/WA-Bot/assets/public/music/.");
 			exec("mv /storage/listen.m3u.orig /storage/listen.m3u");
- 			msg.channel.send(":headphones: :wastebasket:  `Wiping radio queue...`");
+ 			msg.channel.send("<:wa:502866072152571924> :wastebasket:  `Wiping radio queue...`");
 			radioQueue("422898611106480139");
- 			msg.channel.send(":headphones: :white_check_mark:  `Radio queue wipe completed!`");
+ 			msg.channel.send("<:wa:502866072152571924> :white_check_mark:  `Radio queue wipe completed!`");
 			exec("pkill -10 ices && pkill -1 ices");			
 			break;			
 		case "play":
@@ -1246,7 +1246,7 @@ const commands = {
 			var voiceChannel = client.channels.get(discord_channel_id_radio);
 			voiceChannel.join().then(connection => {
 				console.log("Starting WorldAutomation.Net Radio Streamer....");
-				client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> :headphones: `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
+				client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
 				//radioNowPlaying("422898611106480139");
 				//const stream = ytdl('http://listen.radionomy.com/hotmixradio-lounge-128.m3u', { filter : 'audioonly' });
 				//const stream = ffmpeg('https://radio.worldautomation.net/music/Mad_World_-_Gary_Jules.mp3');
@@ -1254,7 +1254,7 @@ const commands = {
 				const dispatcher = connection.playStream("https://ia801905.us.archive.org/6/items/DSOTM/06%20-%20Money.mp3", streamOptions);
 				dispatcher.on("end", end => {
 					console.log("Main WorldAutomation.Net ICECAST Server has quit broadcasting!");
-					msg.channel.send(":headphones: <:restart:420839450914979841>  `Main Radio feed has quit broadcasting, check the servers!`");
+					msg.channel.send("<:wa:502866072152571924> <:restart:420839450914979841>  `Main Radio feed has quit broadcasting, check the servers!`");
 					voiceChannel.leave();
 				});
 			}).catch(err => console.log(err));
@@ -1262,10 +1262,10 @@ const commands = {
 		case "add":
 			let searchRaw = msg.content.replace(msg.content.split(' ')[0], "").replace(msg.content.split(' ')[1],"");
 			if(searchRaw == "" || !searchRaw) {
-				msg.channel.send(":headphones: :exclamation: `You need to supply a search term with !radio add [searchTerm]...`");	
+				msg.channel.send("<:wa:502866072152571924> :exclamation: `You need to supply a search term with !radio add [searchTerm]...`");	
 				return true;
 			}
-			msg.channel.send(":headphones: :mag_right: `Searching YouTube for `"+searchRaw.substr(1)+" `...`");	
+			msg.channel.send("<:wa:502866072152571924> :mag_right: `Searching YouTube for `"+searchRaw.substr(1)+" `...`");	
 			console.log(searchRaw);
 			var YouTube = require('youtube-node');
 			var mentionCommandAuthor = "<@"+msg.author.id+">";
@@ -1283,7 +1283,7 @@ const commands = {
 						var videoNamePretty = video.snippet.title;				
 						video.snippet.title = video.snippet.title.replace(/[^a-zA-Z0-9-_]/g, '_').replace("_-_", "-").replace("__-__","-");
 						var videoDownload = video.snippet.title;
-						var playerQueryIntro = ":headphones: :small_red_triangle_down: `Starting download and encoding for "+videoNamePretty+"...`";
+						var playerQueryIntro = "<:wa:502866072152571924> :small_red_triangle_down: `Starting download and encoding for "+videoNamePretty+"...`";
 						var playerEmbed = {embed: {
 							color: 0x000000,
 							title: videoNamePretty,					
@@ -1317,7 +1317,7 @@ const commands = {
 								  } else {
 									exec("rm /storage/listen.m3u");
 									exec("find /storage/WA-Bot/music | grep .mp3 > /storage/listen.m3u");
-									msg.channel.send(":headphones: :white_check_mark:  `Added request from ` "+mentionCommandAuthor+" ` to Live Radio...` ```"+videoNamePretty+"\nDownloaded and encoded into MP3 (Audio)...\nAdded to WorldAutomation.Net Live Radio Queue...\nEnjoy!```Download it Here -> "+body.id+"\nListen Live in **#radio**, in Game or at -> https://www.worldautomation.net/listen.mp3");	
+									msg.channel.send("<:wa:502866072152571924> :white_check_mark:  `Added request from ` "+mentionCommandAuthor+" ` to Live Radio...` ```"+videoNamePretty+"\nDownloaded and encoded into MP3 (Audio)...\nAdded to WorldAutomation.Net Live Radio Queue...\nEnjoy!```Download it Here -> "+body.id+"\nListen Live in **#radio**, in Game or at -> https://www.worldautomation.net/listen.mp3");	
 									//console.log(response.statusCode, body)
 								  }
 								})
@@ -1362,11 +1362,11 @@ const commands = {
 		case "add":
 			let searchRaw = msg.content.replace(msg.content.split(' ')[0], "").replace(msg.content.split(' ')[1],"").replace(msg.content.split(' ')[2],"");
 			if(searchRaw == "" || !searchRaw) {
-				msg.channel.send(":headphones: :exclamation: `You need to supply a search term with !radio add [searchTerm]...`");	
+				msg.channel.send("<:wa:502866072152571924> :exclamation: `You need to supply a search term with !radio add [searchTerm]...`");	
 				return true;
 			}
-			msg.channel.send(":headphones: :mag_right: `Player "+msg.content.split(' ')[2]+" sent in game request for`"+searchRaw.substring(2)+" `...`");	
-			//client.channels.get("419425539884056587").send(":headphones: :mag_right: `Player "+msg.content.split(' ')[2]+" sent in game request for`"+searchRaw.substring(2)+" `...`");	
+			msg.channel.send("<:wa:502866072152571924> :mag_right: `Player "+msg.content.split(' ')[2]+" sent in game request for`"+searchRaw.substring(2)+" `...`");	
+			//client.channels.get("419425539884056587").send("<:wa:502866072152571924> :mag_right: `Player "+msg.content.split(' ')[2]+" sent in game request for`"+searchRaw.substring(2)+" `...`");	
 			var YouTube = require('youtube-node');
 			var mentionCommandAuthor = msg.content.split(' ')[2];
 			var youTube = new YouTube();
@@ -1385,7 +1385,7 @@ const commands = {
 						var videoNamePretty = video.snippet.title;				
 						video.snippet.title = video.snippet.title.replace(/[^a-zA-Z0-9-_]/g, '_').replace("_-_", "-").replace("__-__","-");
 						var videoDownload = video.snippet.title;
-						var playerQueryIntro = ":headphones: :small_red_triangle_down: `Starting download and encoding for "+videoNamePretty+"...`";
+						var playerQueryIntro = "<:wa:502866072152571924> :small_red_triangle_down: `Starting download and encoding for "+videoNamePretty+"...`";
 						var playerEmbed = {embed: {
 							color: 0x000000,
 							title: videoNamePretty,					
@@ -1419,7 +1419,7 @@ const commands = {
 								  } else {
 									exec("rm /storage/listen.m3u");
 									exec("find /storage/WA-Bot/music | grep .mp3 > /storage/listen.m3u");
-									msg.channel.send(":headphones: :white_check_mark:  `Added request from in game player "+mentionCommandAuthor+" to Live Radio...` ```"+videoNamePretty+"\nDownloaded and encoded into MP3 (Audio)...\nAdded to WorldAutomation.Net Live Radio Queue...\nEnjoy!```Download it Here -> "+body.id+"\nListen Live in **#radio**, in Game or at -> https://www.worldautomation.net/listen.mp3");	
+									msg.channel.send("<:wa:502866072152571924> :white_check_mark:  `Added request from in game player "+mentionCommandAuthor+" to Live Radio...` ```"+videoNamePretty+"\nDownloaded and encoded into MP3 (Audio)...\nAdded to WorldAutomation.Net Live Radio Queue...\nEnjoy!```Download it Here -> "+body.id+"\nListen Live in **#radio**, in Game or at -> https://www.worldautomation.net/listen.mp3");	
 									//console.log(response.statusCode, body)
 								  }
 								})
@@ -2208,7 +2208,7 @@ client.on('ready', () => {
 	var voiceChannel = client.channels.get(discord_channel_id_radio);
 	voiceChannel.join().then(connection => {
 		console.log("Starting WorldAutomation.Net Radio Streamer....");
-		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> :headphones: `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
+		client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> `Initializing the WorldAutomation.Net Media encoders and Playing Test Track...`");
 		//radioNowPlaying("422898611106480139");
 		//const stream = ytdl('http://listen.radionomy.com/hotmixradio-lounge-128.m3u', { filter : 'audioonly' });
 		//const stream = ffmpeg('https://radio.worldautomation.net/music/Mad_World_-_Gary_Jules.mp3');
@@ -2216,7 +2216,7 @@ client.on('ready', () => {
 		const dispatcher = connection.playStream("https://ia801905.us.archive.org/6/items/DSOTM/06%20-%20Money.mp3", streamOptions);
 		dispatcher.on("end", end => {
 			console.log("Main WorldAutomation.Net ICECAST Server has quit broadcasting!");
-			client.channels.get(discord_channel_id_log).send(":headphones: <:restart:420839450914979841>  `Main Radio feed has quit broadcasting, check the servers!`");
+			client.channels.get(discord_channel_id_log).send("<:wa:502866072152571924> <:restart:420839450914979841>  `Main Radio feed has quit broadcasting, check the servers!`");
 			voiceChannel.leave();
 		});
 	}).catch(err => console.log(err));
