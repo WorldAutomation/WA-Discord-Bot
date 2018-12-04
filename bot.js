@@ -1099,7 +1099,7 @@ const commands = {
 	},'speedtest': (msg) => {
 		//msg.delete(1000);		
 		var mentionCommandAuthor = "<@"+msg.author.id+">";
-		msg.channel.send("<:wa:502866072152571924> `Running speed test from bot host node... please wait...`");
+		msg.channel.send("<:wa:502866072152571924> `Running speed test from bot host node, please wait...`");
 		var sys = require('util');
 		var exec = require('child_process').exec;
 		function puts(error, stdout, stderr) { 
