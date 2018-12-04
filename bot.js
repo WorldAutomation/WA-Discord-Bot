@@ -1107,7 +1107,7 @@ const commands = {
 		}
 		exec("speedtest-cli", puts);
 	},'update': (msg) => {
-		msg.channel.send("<:wa:502866072152571924> "+mentionCommandAuthor+" `Speed test result is complete, see attached.`\n```css\n"+stdout+"```"); 
+		msg.channel.send("<:wa:502866072152571924> `Starting update, please wait...`"); 
 		//msg.delete(1000);
 		let host = msg.content.split(' ')[1];
 		var sys = require('util');
